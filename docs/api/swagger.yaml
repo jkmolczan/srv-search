@@ -1,0 +1,70 @@
+swagger: "2.0"
+
+
+info:
+    version: 0.0.1
+    title: srv-search
+
+paths:
+  /docs/api/swagger.yaml:
+    get:
+      description: Returns specification of OpenAPI specification in YAML format
+      produces:
+        - application/yaml
+      responses:
+        200:
+          description: OpenAPI specification in YAML format
+
+  /numbers/index/{number}:
+    get:
+      description: Returns index of the number in the input file
+      produces:
+        - application/json
+      parameters:
+        - name: number
+          in: path
+          required: true
+          type: integer
+          format: uint64
+      responses:
+        200:
+          description: Index of the value in the input file
+          schema:
+            $ref: '#/definitions/IndexResponse'
+        400:
+          description: Invalid or missing parameter(s)
+          schema:
+            $ref: '#/definitions/Error'
+        404:
+          description: Number not found
+          schema:
+            $ref: '#/definitions/Error'
+        500:
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/Error'
+definitions:
+    IndexResponse:
+        type: object
+        required:
+          - index
+          - number
+        properties:
+          index:
+            type: integer
+          number:
+            type: integer
+          message:
+            type: string
+        example:
+          index: 0
+          number: 1
+          message: "Number found at index 0"
+    Error:
+        type: object
+        properties:
+          message:
+            type: string
+        example:
+          message: "Index not found"
+
