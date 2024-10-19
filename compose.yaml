@@ -1,0 +1,13 @@
+services:
+  app:
+    image: golang:1.22-alpine
+    working_dir: /app
+    volumes:
+      - .:/app
+      - pkg:/go/pkg
+    ports:
+      - "8080:8080"
+    command: ["go", "run", "app/main.go", "app/config.go"]
+
+volumes:
+    pkg:

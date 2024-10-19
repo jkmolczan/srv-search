@@ -15,7 +15,7 @@ paths:
         200:
           description: OpenAPI specification in YAML format
 
-  /numbers/index/{number}:
+  /search/numbers/index/{number}:
     get:
       description: Returns index of the number in the input file
       produces:
